@@ -11,6 +11,16 @@ The main things this GDPR Compliance tool addresses are:
 
 This plugin does not actually perform any of the tasks above. It acts as a framework for other plugins to attach to.
 
+## What this Plugin does
+
+The plugin provides the following features:
+
+- Creates a page that shows the GDPR notice for WordPress and all installed plugins
+- Tracks which users have concented to having their data collected and which have not
+- Automatically tracks changes GDPR notice and asks user for re-consent as needed
+- Provides a place where a user can download their date
+- Allows users to fully delete their personal data
+
 ## Full Disclosure
 
 Full disclosure is the main notice that describes all of the data the site is collecting. 
@@ -32,10 +42,16 @@ This entry is JSON data that tracks the following:
 
 Additionally, the plugin offers several static functions to check a user's current opt-in status:
 
-```
+```PHP
 GDPR_Compliance::get_current_consent_version()
 GDPR_Compliance::get_user_consent_version( $user_id = null )
 GDPR_Compliance::is_user_opted_in( $user_id = null )
 ```
 
+## Hooks for Plugin Compliance
 
+The following hooks are used to add data to different hooks
+
+`gdpr_compliance_notice`: Add your plugin's documentation to this hook so that it appears on the notice page.
+`gdpr_compliance_remove_user`: Add a method to this hook to delete a user's plugin-specific custom data.
+`gdpr_compliance_user_data_download`: Add data the JSON-encoded data that the user can download.
